@@ -68,6 +68,7 @@ with open('test_script.json', 'r', encoding='utf-8') as file:
         input_prompts.append(entry.get('question'))
         qid.append(entry.get('qid'))
 
+# allows use of csv files
 # data_csv = pd.read_csv('xstest_v2_prompts.csv')
 # input_prompts = data_csv['prompt'].tolist()
 # qid = data_csv['id_v2'].tolist()
@@ -139,7 +140,6 @@ def attempt_request(input_prompt, retries=3):
                     raise
                 continue
             else:
-                # No response from the server, may raise or handle differently
                 print("No response received from server.")
                 raise
 
@@ -154,57 +154,22 @@ for i, input_prompt in enumerate(input_prompts):
         results.append({
             "qid": qid[i],
             "answer": f"Input: {str(e)}",
-            "input": input_prompt  # Include the input that caused the exception
+            "input": input_prompt
         })
 
     except LLMGuardOutputException as e:
         results.append({
             "qid": qid[i],
             "answer": f"Output: {str(e)}",
-            "input": input_prompt  # Include the input that caused the exception
+            "input": input_prompt
         })
 
     except Exception as e:
         results.append({
             "qid": qid[i],
             "answer": "Connection error occurred.",
-            "input": input_prompt  # Include the input that caused the exception
+            "input": input_prompt
         })
-
-
-# for i, input_prompt in enumerate(input_prompts):
-#     try:
-#         guarded_chain = (
-#             llm_guard_prompt_scanner  # scan input here
-#             | prompt
-#             | llm
-#             | (lambda ai_message: llm_guard_output_scanner.scan(input_prompt, ai_message))  # scan output here and deanonymize
-#             | StrOutputParser()
-#         )
-#
-#         result = guarded_chain.invoke(
-#             {
-#                 "input": input_prompt,
-#             }
-#         )
-#         results.append({"qid": qid[i], "answer": result})
-#         print(i)
-#
-#     except LLMGuardPromptException as e:
-#         print('prompt')
-#         results.append({
-#             "qid": qid[i],
-#             "answer": f"Input: {str(e)}",
-#             "input": input_prompt  # Include the input that caused the exception
-#         })
-#
-#     except LLMGuardOutputException as e:
-#         results.append({
-#             "qid": qid[i],
-#             "answer": f"Output: {str(e)}",
-#             "input": input_prompt  # Include the input that caused the exception
-#         })
-
 
 
 file_path = "results.json"

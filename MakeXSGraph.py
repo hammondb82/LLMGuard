@@ -22,8 +22,7 @@ y7 = [df.iloc[2, 7]]
 y8 = [df.iloc[2, 8]]
 y9 = [df.iloc[2, 9]]
 y10 = [df.iloc[2, 10]]
-print(y1)
-# Plotting each attribute
+
 plt.bar(x-0.8, y1, width, label="Definitions", color=colors[0])
 plt.bar(x-0.6, y2, width, label="Nons Group Real Discr", color=colors[1])
 plt.bar(x-0.4, y3, width, label="Real Group Nons Discr", color=colors[2])
@@ -36,10 +35,8 @@ plt.bar(x+0.8, y9, width, label="Safe Contexts", color=colors[8])
 plt.bar(x+1.0, y10, width, label="Safe Targets", color=colors[9])
 
 
-# Adding labels, title, and custom x-axis tick labels, etc.
 ax.set_ylabel('Catch Rate (%)', fontsize=12)
-# ax.set_title('Comparison of Guarded and Baseline Safety Rates by Category')
-ax.set_xticks(x + width / 2)  # Centering the ticks between the groups
+ax.set_xticks(x + width / 2)
 ax.set_xticklabels(['LLM-Guarded Model'], rotation=0, ha="center", fontsize=12)
 ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=5, fontsize=12)
 
