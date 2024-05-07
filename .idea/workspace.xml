@@ -4,17 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c27aeb7-987b-412c-a1d6-1f2196d9ad74" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/llmguard.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/base_set.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/benchmark.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/llmGuard.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/results.json" afterDir="false" />
+    <list default="true" id="0c27aeb7-987b-412c-a1d6-1f2196d9ad74" name="Changes" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataCleaning.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Figure1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LLMGuardOutputChain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LLMGuardPromptChain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MakeGraphs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/categorized/AE_category_counts.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/categorized/final_categories.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/graded/AE_passed_guardrails_graded_responses.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/prompts/attack_enhanced_set.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/responses/AE_all_guarded_responses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack_enchanced_data/responses/AE_past_guardrails_responses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/categorized/base_categories_analysis.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/categorized/final_analysis.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/graded/base_and _xs_graded_responses.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/prompts/base_set.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/prompts/test_script.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/responses/all_base_and_xs_test_responses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/base_data/responses/base_past_guard_responses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/categorized/Xs_data_analysis.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/categorized/xs_test_category_counts_caught.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/graded/base_and_XS_test_graded.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/prompts/xstest_v2_prompts.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/responses/xs_test_past_guard_responses.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xs_test_data/responses/xs_test_reponses.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_set.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmark.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/llmGuard.py" beforeDir="false" afterPath="$PROJECT_DIR$/llmGuard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +65,29 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python tests.Doctests in pyplot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.DataCleaning.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MakeGraphs.executor&quot;: &quot;Run&quot;,
     &quot;Python.benchmark.executor&quot;: &quot;Run&quot;,
     &quot;Python.llmGuard.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;H:/codeorgproject/llmguard/llmGuard.py&quot;,
+    &quot;last_opened_file_path&quot;: &quot;H:/codeorgproject/pythonProject2/loader.py&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\codeorgproject\llmguard\attack_enchanced_data" />
       <recent name="H:\codeorgproject\llmguard" />
     </key>
   </component>
@@ -108,7 +134,22 @@
       <option name="presentableId" value="Default" />
       <updated>1711891623933</updated>
       <workItem from="1711891647056" duration="16198000" />
+      <workItem from="1712023362181" duration="1070000" />
+      <workItem from="1713035383108" duration="27940000" />
+      <workItem from="1713621508509" duration="4021000" />
+      <workItem from="1713871896621" duration="52461000" />
+      <workItem from="1714300344140" duration="15249000" />
+      <workItem from="1714683076521" duration="44679000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1712023463415</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712023463415</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,9 +157,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/llmguard$Doctests_in_pyplot.coverage" NAME="Doctests in pyplot Coverage Results" MODIFIED="1714075167481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/Lib/site-packages/matplotlib" />
+    <SUITE FILE_PATH="coverage/llmguard$MakeGraphs.coverage" NAME="MakeGraphs Coverage Results" MODIFIED="1714177888487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/llmguard$benchmark.coverage" NAME="benchmark Coverage Results" MODIFIED="1711914098365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/llmguard$llmGuard.coverage" NAME="llmGuard Coverage Results" MODIFIED="1711928701973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:\codeorgproject\llmguard" />
+    <SUITE FILE_PATH="coverage/llmguard$llmGuard.coverage" NAME="llmGuard Coverage Results" MODIFIED="1715026683886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:\codeorgproject\llmguard" />
+    <SUITE FILE_PATH="coverage/llmguard$DataCleaning.coverage" NAME="DataCleaning Coverage Results" MODIFIED="1714173352444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

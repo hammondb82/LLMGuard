@@ -1,229 +1,22 @@
 import os
 import json
+import requests
+import pandas as pd
 HUGGINGFACEHUB_API_TOKEN = os.environ["HUGGINGFACEHUB_API_TOKEN"]
-
 from langchain_community.llms import HuggingFaceEndpoint
-# from langchain.chains import LLMChain
-# from langchain.prompts import PromptTemplate
-
-
-# question = "fuck, shit, damn"
-#
-# template = """Question: {question}
-#
-# Answer: Let's think step by step."""
-#
-# prompt = PromptTemplate.from_template(template)
-
-# prompt = "Who won the FIFA World Cup in the year 1994?"
-
+from LLMGuardPromptChain import LLMGuardPromptChain, LLMGuardPromptException
+from LLMGuardOutputChain import LLMGuardOutputChain, LLMGuardOutputException
 repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
-
-from llm_guard.input_scanners import Anonymize
-from llm_guard.input_scanners.anonymize_helpers import BERT_LARGE_NER_CONF
 from llm_guard.vault import Vault
-#
-# vault = Vault()
-
-# from llm_guard.input_scanners import BanTopics
-#
-# scanner = BanTopics(topics=["violence", "racism", 'sexuality', 'self-harm', 'bullying', 'drugs', 'profanity'], threshold=0.5)
-# sanitized_prompt, is_valid, risk_score = scanner.scan(question)
-#
-# if is_valid:
-#     llm = HuggingFaceEndpoint(
-#         repo_id=repo_id, max_length=128, temperature=0.5, token=HUGGINGFACEHUB_API_TOKEN
-#     )
-#     llm_chain = LLMChain(prompt=prompt, llm=llm)
-#     print(llm_chain.invoke(question))
-# else:
-#     print("I'm sorry, this prompt violates our code of conduct")
-
 import logging
-from typing import Any, Dict, List, Optional, Union
-
-from langchain.callbacks.manager import AsyncCallbackManagerForChainRun, CallbackManagerForChainRun
-from langchain.chains.base import Chain
-from langchain.pydantic_v1 import BaseModel, root_validator
-from langchain.schema.messages import BaseMessage
-import llm_guard
-
-
+from llm_guard.input_scanners.toxicity import MatchType
+import time
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain.schema.messages import SystemMessage
+from langchain.schema.output_parser import StrOutputParser
 use_onnx = False
 
-
 logger = logging.getLogger(__name__)
-
-# try:
-#     import llm_guard
-# except ImportError:
-#     raise ModuleNotFoundError(
-#         "Could not import llm-guard python package. "
-#         "Please install it with `pip install llm-guard`."
-#     )
-
-
-class LLMGuardPromptException(Exception):
-    """Exception to raise when llm-guard marks prompt invalid."""
-
-
-class LLMGuardPromptChain(Chain):
-    scanners: Dict[str, Dict] = {}
-    """The scanners to use."""
-    scanners_ignore_errors: List[str] = []
-    """The scanners to ignore if they throw errors."""
-    vault: Optional[llm_guard.vault.Vault] = None
-    """The scanners to ignore errors from."""
-    raise_error: bool = False
-    """Whether to raise an error if the LLMGuard marks the prompt invalid."""
-
-    input_key: str = "input"  #: :meta private:
-    output_key: str = "sanitized_input"  #: :meta private:
-    initialized_scanners: List[Any] = []  #: :meta private:
-
-    @root_validator(pre=True)
-    def init_scanners(cls, values: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Initializes scanners
-
-        Args:
-            values (Dict[str, Any]): A dictionary containing configuration values.
-
-        Returns:
-            Dict[str, Any]: A dictionary with the updated configuration values,
-                            including the initialized scanners.
-
-        Raises:
-            ValueError: If there is an issue importing 'llm-guard' or loading scanners.
-        """
-
-        if values.get("initialized_scanners") is not None:
-            return values
-        try:
-            if values.get("scanners") is not None:
-                values["initialized_scanners"] = []
-                for scanner_name in values.get("scanners"):
-                    scanner_config = values.get("scanners")[scanner_name]
-                    if scanner_name == "Anonymize":
-                        scanner_config["vault"] = values["vault"]
-
-                    values["initialized_scanners"].append(
-                        llm_guard.input_scanners.get_scanner_by_name(scanner_name, scanner_config)
-                    )
-
-            return values
-        except Exception as e:
-            raise ValueError(
-                "Could not initialize scanners. " f"Please check provided configuration. {e}"
-            ) from e
-
-    @property
-    def input_keys(self) -> List[str]:
-        """
-        Returns a list of input keys expected by the prompt.
-
-        This method defines the input keys that the prompt expects in order to perform
-        its processing. It ensures that the specified keys are available for providing
-        input to the prompt.
-
-        Returns:
-           List[str]: A list of input keys.
-
-        Note:
-           This method is considered private and may not be intended for direct
-           external use.
-        """
-        return [self.input_key]
-
-    @property
-    def output_keys(self) -> List[str]:
-        """
-        Returns a list of output keys.
-
-        This method defines the output keys that will be used to access the output
-        values produced by the chain or function. It ensures that the specified keys
-        are available to access the outputs.
-
-        Returns:
-            List[str]: A list of output keys.
-
-        Note:
-            This method is considered private and may not be intended for direct
-            external use.
-
-        """
-        return [self.output_key]
-
-    def _check_result(
-        self,
-        scanner_name: str,
-        is_valid: bool,
-        risk_score: float,
-        run_manager: Optional[CallbackManagerForChainRun] = None,
-    ):
-        if is_valid:
-            return True # prompt is valid, keep scanning
-
-        # if run_manager:
-        #     run_manager.on_text(
-        #         text=f"This prompt was determined as invalid by {scanner_name} scanner with risk score {risk_score}",
-        #         color="red",
-        #         verbose=self.verbose,
-        #     )
-
-        if scanner_name in self.scanners_ignore_errors:
-            return  # ignore error, keep scanning
-
-        return False
-
-        # if self.raise_error:
-        #     raise LLMGuardPromptException(
-        #         f"This prompt was determined as invalid based on configured policies with risk score {risk_score}"
-        #     )
-
-    async def _acall(
-        self,
-        inputs: Dict[str, Any],
-        run_manager: Optional[AsyncCallbackManagerForChainRun] = None,
-    ) -> Dict[str, str]:
-        raise NotImplementedError("Async not implemented yet")
-
-    def _call(
-        self,
-        inputs: Dict[str, str],
-        run_manager: Optional[CallbackManagerForChainRun] = None,
-    ) -> Dict[str, str]:
-        """
-        Executes the scanning process on the prompt and returns the sanitized prompt.
-
-        This internal method performs the scanning process on the prompt. It uses the
-        provided scanners to scan the prompt and then returns the sanitized prompt.
-        Additionally, it provides the option to log information about the run using
-        the provided `run_manager`.
-
-        Args:
-            inputs: A dictionary containing input values
-            run_manager: A run manager to handle run-related events. Default is None
-
-        Returns:
-            Dict[str, str]: A dictionary containing the processed output.
-
-        Raises:
-            LLMGuardPromptException: If there is an error during the scanning process
-        """
-        if run_manager:
-            run_manager.on_text("Running LLMGuardPromptChain...\n")
-
-        sanitized_prompt = inputs[self.input_keys[0]]
-        for scanner in self.initialized_scanners:
-            sanitized_prompt, is_valid, risk_score = scanner.scan(sanitized_prompt)
-            # self._check_result(type(scanner).__name__, is_valid, risk_score, run_manager)
-            if not self._check_result(type(scanner).__name__, is_valid, risk_score, run_manager):
-                # If the prompt is invalid, return a standard response immediately
-                return {self.output_key: "I'm sorry, but I can't respond to that request."}
-
-        return {self.output_key: sanitized_prompt}
-
 
 vault = Vault()
 
@@ -231,190 +24,63 @@ llm_guard_prompt_scanner = LLMGuardPromptChain(
     vault=vault,
     scanners={
         "Anonymize": {"use_faker": True, "use_onnx": use_onnx},
-        "BanSubstrings": {
-            "substrings": ["Laiyer"],
-            "match_type": "word",
-            "case_sensitive": False,
-            "redact": True,
-        },
         "BanTopics": {"topics": ["violence", "Sexuality", "Racism", "Suicide", "Drugs"], "threshold": 0.7, "use_onnx": use_onnx},
-        # "Code": {"denied": ["go"], "use_onnx": use_onnx},
         "Language": {"valid_languages": ["en"], "use_onnx": use_onnx},
         "PromptInjection": {"threshold": 0.95, "use_onnx": use_onnx},
         "Regex": {"patterns": ["Bearer [A-Za-z0-9-._~+/]+"]},
         "Secrets": {"redact_mode": "all"},
         "Sentiment": {"threshold": -0.05},
         "TokenLimit": {"limit": 4096},
-        "Toxicity": {"threshold": 0.8, "use_onnx": use_onnx},
+        "Toxicity": {"threshold": 0.8, 'match_type': MatchType.SENTENCE, "use_onnx": use_onnx},
     },
-    scanners_ignore_errors=[
-        "Anonymize",
-        "BanSubstrings",
-        "Regex",
-        "Secrets",
-        "TokenLimit",
-        "PromptInjection",
-    ],  # These scanners redact, so I can skip them from failing the prompt
+    # scanners_ignore_errors=[
+    #     "Anonymize",
+    #     "BanSubstrings",
+    #     "Regex",
+    #     "Secrets",
+    #     "TokenLimit",
+    #     "PromptInjection",
+    # ],  # These scanners redact, so I can skip them from failing the prompt
 )
 
-from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
-from langchain.schema.messages import SystemMessage
-from langchain.schema.output_parser import StrOutputParser
 
 llm = HuggingFaceEndpoint(
-        repo_id=repo_id, max_length=128, temperature=0.5, token=HUGGINGFACEHUB_API_TOKEN
+        repo_id=repo_id, token=HUGGINGFACEHUB_API_TOKEN
     )
 
 prompt = ChatPromptTemplate.from_messages(
     [
         SystemMessage(
-            content="You are a helpful assistant"
+            content="You're a helpful assistant"
         ),
         HumanMessagePromptTemplate.from_template("{sanitized_input}"),
     ]
 )
 
 input_prompts = []
+qid = []
 
-with open('base_set.json', 'r', encoding='utf-8') as file:
+with open('test_script.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
-    for entry in data[:5]:
+
+    for entry in data:
         input_prompts.append(entry.get('question'))
+        qid.append(entry.get('qid'))
 
-
-for input_prompt in input_prompts:
-    guarded_chain = (
-        llm_guard_prompt_scanner  # scan input here
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
-
-    result = guarded_chain.invoke(
-        {
-            "input": input_prompt,
-        }
-    )
-
-    print("Result: " + result)
-
-
-class LLMGuardOutputException(Exception):
-    """Exception to raise when llm-guard marks output invalid."""
-
-
-class LLMGuardOutputChain(BaseModel):
-    class Config:
-        arbitrary_types_allowed = True
-
-    scanners: Dict[str, Dict] = {}
-    """The scanners to use."""
-    scanners_ignore_errors: List[str] = []
-    """The scanners to ignore if they throw errors."""
-    vault: Optional[llm_guard.vault.Vault] = None
-    """The scanners to ignore errors from."""
-    raise_error: bool = False
-    """Whether to raise an error if the LLMGuard marks the output invalid."""
-
-    initialized_scanners: List[Any] = []  #: :meta private:
-
-    @root_validator(pre=True)
-    def init_scanners(cls, values: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Initializes scanners
-
-        Args:
-            values (Dict[str, Any]): A dictionary containing configuration values.
-
-        Returns:
-            Dict[str, Any]: A dictionary with the updated configuration values,
-                            including the initialized scanners.
-
-        Raises:
-            ValueError: If there is an issue importing 'llm-guard' or loading scanners.
-        """
-
-        if values.get("initialized_scanners") is not None:
-            return values
-        try:
-            if values.get("scanners") is not None:
-                values["initialized_scanners"] = []
-                for scanner_name in values.get("scanners"):
-                    scanner_config = values.get("scanners")[scanner_name]
-                    if scanner_name == "Deanonymize":
-                        scanner_config["vault"] = values["vault"]
-
-                    values["initialized_scanners"].append(
-                        llm_guard.output_scanners.get_scanner_by_name(scanner_name, scanner_config)
-                    )
-
-            return values
-        except Exception as e:
-            raise ValueError(
-                "Could not initialize scanners. " f"Please check provided configuration. {e}"
-            ) from e
-
-    def _check_result(
-        self,
-        scanner_name: str,
-        is_valid: bool,
-        risk_score: float,
-    ):
-        if is_valid:
-            return True # prompt is valid, keep scanning
-
-        logger.warning(
-            f"This output was determined as invalid by {scanner_name} scanner with risk score {risk_score}"
-        )
-
-        if scanner_name in self.scanners_ignore_errors:
-            return  # ignore error, keep scanning
-
-        # if self.raise_error:
-        #     raise LLMGuardOutputException(
-        #         f"This output was determined as invalid based on configured policies with risk score {risk_score}"
-        #     )
-        return False
-
-    def scan(
-        self,
-        prompt: str,
-        output: Union[BaseMessage, str],
-    ) -> Union[BaseMessage, str]:
-        sanitized_output = output
-        if isinstance(output, BaseMessage):
-            sanitized_output = sanitized_output.content
-
-        for scanner in self.initialized_scanners:
-            sanitized_output, is_valid, risk_score = scanner.scan(prompt, sanitized_output)
-            if not self._check_result(type(scanner).__name__, is_valid, risk_score):
-                # If the output is invalid, return a standard response immediately
-                invalid_response = "I'm sorry, but I can't provide a response based on that input."
-                return BaseMessage(content=invalid_response) if isinstance(output, BaseMessage) else invalid_response
-
-        if isinstance(output, BaseMessage):
-            output.content = sanitized_output
-            return output
-
-        return sanitized_output
+# data_csv = pd.read_csv('xstest_v2_prompts.csv')
+# input_prompts = data_csv['prompt'].tolist()
+# qid = data_csv['id_v2'].tolist()
 
 
 llm_guard_output_scanner = LLMGuardOutputChain(
     vault=vault,
     scanners={
-        "BanSubstrings": {
-            "substrings": ["Laiyer"],
-            "match_type": "word",
-            "case_sensitive": False,
-            "redact": True,
-        },
-        "BanTopics": {"topics": ["violence", "Sexuality", "Racism", "Suicide", "Drugs"], "threshold": 0.7, "use_onnx": use_onnx},
+        "BanTopics": {"topics": ["violence", "Sexuality", "Racism", "Suicide", "Drugs"], "threshold": 0.8, "use_onnx": use_onnx},
         "Bias": {"threshold": 0.75, "use_onnx": use_onnx},
-        # "Code": {"denied": ["go"], "use_onnx": use_onnx},
         "Deanonymize": {},
         "FactualConsistency": {"minimum_score": 0.5, "use_onnx": use_onnx},
-        "JSON": {"required_elements": 0, "repair": True},
+        # "JSON": {"required_elements": 0, "repair": True},
         "Language": {
             "valid_languages": ["en"],
             "threshold": 0.5,
@@ -426,32 +92,123 @@ llm_guard_output_scanner = LLMGuardOutputChain(
         "Regex": {
             "patterns": ["Bearer [A-Za-z0-9-._~+/]+"],
         },
-        "Relevance": {"threshold": 0.5, "use_onnx": use_onnx},
+        # "Relevance": {"threshold": 0.5, "use_onnx": use_onnx},
         "Sensitive": {"redact": False, "use_onnx": use_onnx},
         "Sentiment": {"threshold": -0.05},
         "Toxicity": {"threshold": 0.7, "use_onnx": use_onnx},
     },
-    scanners_ignore_errors=["BanSubstrings", "Regex", "Sensitive"],
+    # scanners_ignore_errors=["BanSubstrings", "Regex", "Sensitive"],
 )
 
-
+start_time = time.time()
 results = []
-for i, input_prompt in enumerate(input_prompts):
-    guarded_chain = (
-        llm_guard_prompt_scanner  # scan input here
-        | prompt
-        | llm
-        | (lambda ai_message: llm_guard_output_scanner.scan(input_prompt, ai_message))  # scan output here and deanonymize
-        | StrOutputParser()
-    )
 
-    result = guarded_chain.invoke(
-        {
-            "input": input_prompt,
-        }
-    )
-    results.append({"qid": i, "answer": result})
+def attempt_request(input_prompt, retries=3):
+    for attempt in range(retries):
+        try:
+            guarded_chain = (
+                llm_guard_prompt_scanner
+                | prompt
+                | llm
+                | (lambda ai_message: llm_guard_output_scanner.scan(input_prompt, ai_message))
+                | StrOutputParser()
+            )
+
+            result = guarded_chain.invoke({"input": input_prompt})
+            return result
+        except requests.exceptions.ConnectionError as e:
+            if attempt < retries - 1:
+                print(f"Attempt {attempt + 1} failed, retrying...")
+                time.sleep(2 ** attempt)
+            else:
+                raise e
+        except requests.exceptions.HTTPError as e:
+            if e.response:
+                if e.response.status_code == 502:
+                    print(f"Attempt {attempt + 1} failed with 502 Bad Gateway, retrying...")
+                    time.sleep(2 ** attempt)
+                elif e.response.status_code == 503:
+                    print(f"Attempt {attempt + 1} failed with 503 Service Unavailable, retrying...")
+                    time.sleep(2 ** (attempt + 1))
+                elif e.response.status_code == 504:
+                    print(f"Attempt {attempt + 1} failed with 504 Gateway Timeout, retrying...")
+                    time.sleep(2 ** attempt)
+                else:
+
+                    print(f"HTTP error with status code {e.response.status_code} encountered.")
+                    raise
+                continue
+            else:
+                # No response from the server, may raise or handle differently
+                print("No response received from server.")
+                raise
+
+for i, input_prompt in enumerate(input_prompts):
+    try:
+        result = attempt_request(input_prompt)
+        results.append({"qid": qid[i], "answer": result})
+        print(i)
+
+    except LLMGuardPromptException as e:
+        print('prompt')
+        results.append({
+            "qid": qid[i],
+            "answer": f"Input: {str(e)}",
+            "input": input_prompt  # Include the input that caused the exception
+        })
+
+    except LLMGuardOutputException as e:
+        results.append({
+            "qid": qid[i],
+            "answer": f"Output: {str(e)}",
+            "input": input_prompt  # Include the input that caused the exception
+        })
+
+    except Exception as e:
+        results.append({
+            "qid": qid[i],
+            "answer": "Connection error occurred.",
+            "input": input_prompt  # Include the input that caused the exception
+        })
+
+
+# for i, input_prompt in enumerate(input_prompts):
+#     try:
+#         guarded_chain = (
+#             llm_guard_prompt_scanner  # scan input here
+#             | prompt
+#             | llm
+#             | (lambda ai_message: llm_guard_output_scanner.scan(input_prompt, ai_message))  # scan output here and deanonymize
+#             | StrOutputParser()
+#         )
+#
+#         result = guarded_chain.invoke(
+#             {
+#                 "input": input_prompt,
+#             }
+#         )
+#         results.append({"qid": qid[i], "answer": result})
+#         print(i)
+#
+#     except LLMGuardPromptException as e:
+#         print('prompt')
+#         results.append({
+#             "qid": qid[i],
+#             "answer": f"Input: {str(e)}",
+#             "input": input_prompt  # Include the input that caused the exception
+#         })
+#
+#     except LLMGuardOutputException as e:
+#         results.append({
+#             "qid": qid[i],
+#             "answer": f"Output: {str(e)}",
+#             "input": input_prompt  # Include the input that caused the exception
+#         })
+
+
 
 file_path = "results.json"
 with open(file_path, 'w') as json_file:
     json.dump(results, json_file, indent=4)
+end_time = time.time()
+print(end_time - start_time)

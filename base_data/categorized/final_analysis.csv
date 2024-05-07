@@ -1,0 +1,89 @@
+Category,Count_Where_Label_1,Total_Counts
+O10: Disability Stereotyping,0.0,185.0
+O10: Security Threats,15.0,1643.0
+O11: Defamation,3.0,437.0
+O11: Gender Stereotyping,5.0,367.0
+O12: Fraud or Deceptive Action,19.0,2439.0
+O12: Religious Stereotyping,2.0,301.0
+O13: Influence Operations,13.0,815.0
+O13: Location Stereotyping,1.0,243.0
+O14: Erotic Chat,0.0,378.0
+O14: Illegal Activities,15.0,3422.0
+O15: Persuasion and Manipulation,1.0,640.0
+O15: Sexual Activity,1.0,361.0
+O16: Pornography,0.0,336.0
+O16: Violation of Personal Property,17.0,1077.0
+O17: Law Advice,1.0,244.0
+O18: Common Sense,10.0,320.0
+O19: Illegal Drugs and Regulated/Controlled Substances,0.0,563.0
+O1: Hate Speech,1.0,530.0
+O1: Representation & Toxicity,26.0,6486.0
+O1: Toxic Content,13.0,3246.0
+O20: Medical Advice,1.0,187.0
+O21: Historical Revisionism,1.0,293.0
+O22: Science Denialism,1.0,195.0
+O23: Radicalization,2.0,229.0
+O24: Multi-level Marketing,2.0,230.0
+O25: Paypal Lending,3.0,160.0
+O26: Gambling,13.0,261.0
+O27: Labor Issues,0.0,114.0
+O28: Trade Affairs,0.0,86.0
+O29: Fake News,0.0,184.0
+"O2: Harass, Threaten, or Bully An Individual",1.0,550.0
+O2: Misinformation Harms,16.0,2031.0
+O2: Unfair Representation,12.0,2165.0
+O30: Social Media Rumors,3.0,253.0
+O31: Government Secrets,4.0,140.0
+O32: Financial Data Leaks,2.0,243.0
+O33: Inferring Personal Information,3.0,373.0
+O34: Leaking Private Information,3.0,284.0
+O35: Weapon Generation and Transportation,5.0,462.0
+O36: Management or Operation of Critical Infrastructure,0.0,322.0
+O37: Malware Generation,6.0,326.0
+O38: Cyber Attack,4.0,332.0
+O39: Biological and Chemical Harms,0.0,201.0
+O3: Adult Content,1.0,1075.0
+O3: Enjoying someone else's Pain,1.0,368.0
+O3: Socioeconomic Harms,18.0,851.0
+O40: Group Defamation,2.0,168.0
+O41: Defamation Someone,1.0,269.0
+O42: Scams,5.0,349.0
+O43: Financial Fraud,2.0,367.0
+O44: Academic Dishonesty,3.0,393.0
+O45: Fake Review Generation,3.0,292.0
+O46: Fake Online Content,2.0,280.0
+O47: Disinformation,0.0,271.0
+O48: Spam,4.0,230.0
+O49: Pseudo-pharmaceuticals,0.0,257.0
+O4: Erosion of Trust in Public Information,12.0,1314.0
+O4: Information & Safety,15.0,1477.0
+O4: Terrorism,2.0,330.0
+O50: Manipulation of Public Opinion,7.0,246.0
+O51: Campaign Materials,3.0,189.0
+O52: Illegitimate Surveillance,3.0,380.0
+O53: Financial Crimes,2.0,358.0
+O54: Drug-related Crimes,0.0,351.0
+O55: Sexual Offenses,0.0,296.0
+O56: Violent Crimes,0.0,759.0
+O57: Theft,7.0,964.0
+O58: Illegal Law Advice,4.0,224.0
+O59: Environmental Crimes,0.0,248.0
+O5: Malicious Use,65.0,8756.0
+O5: Propagating Misconceptions/False Beliefs,4.0,717.0
+O5: Violent Content,4.0,511.0
+O60: Traffic and Driving Offenses,2.0,222.0
+O62: Self-Harm,0.0,388.0
+O63: Psychological Manipulation,1.0,252.0
+O64: Mimicking Writing Style,2.0,195.0
+O65: Plagiarism,4.0,324.0
+O66: Copyright Infringement,7.0,238.0
+O67: Forge Identity,4.0,320.0
+O6: Child Abuse,1.0,314.0
+O6: Human Autonomy & Integrity,18.0,1717.0
+O6: Risky Financial Practices,18.0,651.0
+O7: Insult,3.0,643.0
+O7: Trade and Compliance,0.0,200.0
+O8: Dissemination of Dangerous Information,9.0,820.0
+O8: Racial and Ethnic Stereotyping,1.0,847.0
+O9: Age Stereotyping,3.0,222.0
+O9: Privacy Infringement,6.0,657.0
