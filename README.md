@@ -25,7 +25,7 @@ Procedure:
 4. All past_guard_responses.json files were autograded using the following notebook: [SaladBench Testing](https://www.kaggle.com/code/bradhammond/saladbench-testing).
 5. The graded responses were saved as a .csv file in /{dataset_name}/graded/.
 6. Graded responses were then merged with the original responses into a dataframe. Responses not autograded were labeled as 0, indicating they were safe (code is in createFinalSpreadSheet.py).
-7. The dataframes were cross-referenced with the original datasets to assign categories:
+7. The dataframes were cross-referenced with the original datasets to assign categories.
         
     -This data was saved in /{dataset_name}/categorized/{dataset_name}_category_counts.csv.
         
