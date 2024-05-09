@@ -5,7 +5,8 @@ import logging
 import llm_guard
 
 logger = logging.getLogger(__name__)
-
+# code was adapted from https://llm-guard.com/tutorials/notebooks/langchain/#what-is-lcel to use
+# Mistal-7B-instruct-v0.2 as the LLM instead of an OpenAI model.
 class LLMGuardOutputException(Exception):
     """Exception to raise when llm-guard marks output invalid."""
 

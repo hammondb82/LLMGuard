@@ -4,7 +4,8 @@ from langchain.pydantic_v1 import root_validator
 from langchain.callbacks.manager import AsyncCallbackManagerForChainRun, CallbackManagerForChainRun
 from langchain.chains.base import Chain
 import llm_guard
-
+# code was adapted from https://llm-guard.com/tutorials/notebooks/langchain/#what-is-lcel to use
+# Mistal-7B-instruct-v0.2 as the LLM instead of an OpenAI model.
 class LLMGuardPromptException(Exception):
     """Exception to raise when llm-guard marks prompt invalid."""
 class LLMGuardPromptChain(Chain):

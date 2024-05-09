@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import json
 
 
-df = pd.read_csv('Final Categories.csv',  encoding='utf-8')
+df = pd.read_csv('base_set/categorized/final_analysis.csv', encoding='utf-8')
 
 
 fig, ax = plt.subplots(figsize=(10,6))
@@ -30,9 +30,6 @@ plt.bar(x+0.1, y4, width, label="Malicious Use", color=colors[3])
 plt.bar(x+0.3, y5, width, label="Human Autonomy & Integrity Harms", color=colors[4])
 plt.bar(x+0.5, y6, width, label="Socioeconomic Harms", color=colors[5])
 plt.bar(x+0.7, y7, width, label="Overall", color=colors[6])
-
-
-
 
 
 ax.set_ylabel('Safety Rate (%)', fontsize=11)

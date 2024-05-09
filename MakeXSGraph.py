@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('xs_test_data/categorized/xs_data_analysis.csv', encoding='utf-8')
+df = pd.read_csv('xs_test_set/categorized/xs_final_analysis.csv', encoding='utf-8')
 
 
 fig, ax = plt.subplots(figsize=(12,6))
@@ -35,12 +35,10 @@ plt.bar(x+0.8, y9, width, label="Safe Contexts", color=colors[8])
 plt.bar(x+1.0, y10, width, label="Safe Targets", color=colors[9])
 
 
-ax.set_ylabel('Catch Rate (%)', fontsize=12)
+ax.set_ylabel('Refusal Rate (%)', fontsize=12)
 ax.set_xticks(x + width / 2)
 ax.set_xticklabels(['LLM-Guarded Model'], rotation=0, ha="center", fontsize=12)
 ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=5, fontsize=12)
-
-
 
 plt.tight_layout()
 plt.savefig('Figure2.png', format='png', dpi=300)

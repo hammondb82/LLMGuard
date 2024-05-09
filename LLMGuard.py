@@ -1,3 +1,6 @@
+# code was adapted from https://llm-guard.com/tutorials/notebooks/langchain/#what-is-lcel to use
+# Mistal-7B-instruct-v0.2 as the LLM instead of an OpenAI model.
+
 import os
 import json
 import requests
@@ -57,10 +60,12 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
+#Change this path based on what dataset you want to run
+file_path = "base_set/prompts/test_script.json"
 input_prompts = []
 qid = []
 
-with open('test_script.json', 'r', encoding='utf-8') as file:
+with open(file_path, 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 
@@ -69,7 +74,7 @@ with open('test_script.json', 'r', encoding='utf-8') as file:
         qid.append(entry.get('qid'))
 
 # allows use of csv files
-# data_csv = pd.read_csv('xstest_v2_prompts.csv')
+# data_csv = pd.read_csv(file_path)
 # input_prompts = data_csv['prompt'].tolist()
 # qid = data_csv['id_v2'].tolist()
 
@@ -104,6 +109,7 @@ llm_guard_output_scanner = LLMGuardOutputChain(
 start_time = time.time()
 results = []
 
+# I made most of this code below this line to catch any errors and exceptions raised by LLM-Guard.
 def attempt_request(input_prompt, retries=3):
     for attempt in range(retries):
         try:
@@ -172,8 +178,8 @@ for i, input_prompt in enumerate(input_prompts):
         })
 
 
-file_path = "results.json"
-with open(file_path, 'w') as json_file:
+save_file_path = "results.json"
+with open(save_file_path, 'w') as json_file:
     json.dump(results, json_file, indent=4)
 end_time = time.time()
 print(end_time - start_time)
