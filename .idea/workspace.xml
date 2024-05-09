@@ -4,38 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c27aeb7-987b-412c-a1d6-1f2196d9ad74" name="Changes" comment="complete with data">
-      <change afterPath="$PROJECT_DIR$/CreateFinalSpreadSheet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xs_test_set/categorized/xs_final_analysis.csv" afterDir="false" />
+    <list default="true" id="0c27aeb7-987b-412c-a1d6-1f2196d9ad74" name="Changes" comment="included the data cleaning scripts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataCleaning.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataCleaning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figure1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figure1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figure2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figure2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LLMGuardOutputChain.py" beforeDir="false" afterPath="$PROJECT_DIR$/LLMGuardOutputChain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LLMGuardPromptChain.py" beforeDir="false" afterPath="$PROJECT_DIR$/LLMGuardPromptChain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MakeSaladBenchGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/MakeSaladBenchGraph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MakeXSGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/MakeXSGraph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/categorized/AE_category_counts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/categorized/AE_category_counts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/categorized/final_categories.csv" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/categorized/final_categories.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/graded/AE_passed_guardrails_graded_responses.csv" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/graded/AE_graded_responses.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/prompts/attack_enhanced_set.json" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/prompts/attack_enhanced_set.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/responses/AE_all_guarded_responses.json" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/responses/AE_responses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attack_enchanced_data/responses/AE_past_guardrails_responses.json" beforeDir="false" afterPath="$PROJECT_DIR$/attack_enchanced_set/responses/AE_past_guard_responses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/categorized/base_categories_analysis.csv" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/categorized/final_analysis.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/categorized/final_analysis.csv" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/categorized/base_categories_analysis.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/graded/base_and _xs_graded_responses.csv" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/graded/base_and _xs_graded_responses.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/prompts/base_set.json" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/prompts/base_set.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/prompts/test_script.json" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/prompts/test_script.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/responses/all_base_and_xs_test_responses.json" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/responses/base_and_xs_test_responses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_data/responses/base_past_guard_responses.json" beforeDir="false" afterPath="$PROJECT_DIR$/base_set/responses/base_past_guard_responses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/llmGuard.py" beforeDir="false" afterPath="$PROJECT_DIR$/LLMGuard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/categorized/Xs_data_analysis.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/categorized/xs_test_category_counts_caught.csv" beforeDir="false" afterPath="$PROJECT_DIR$/xs_test_set/categorized/xs_test_category_counts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/graded/base_and_XS_test_graded.csv" beforeDir="false" afterPath="$PROJECT_DIR$/xs_test_set/graded/base_and_XS_test_graded.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/prompts/xstest_v2_prompts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/xs_test_set/prompts/xstest_v2_prompts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/responses/xs_test_past_guard_responses.json" beforeDir="false" afterPath="$PROJECT_DIR$/xs_test_set/responses/xs_test_past_guard_responses.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xs_test_data/responses/xs_test_reponses.json" beforeDir="false" afterPath="$PROJECT_DIR$/xs_test_set/responses/xs_test_reponses.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +21,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -145,7 +118,7 @@
       <workItem from="1714300344140" duration="15249000" />
       <workItem from="1714683076521" duration="44679000" />
       <workItem from="1715075832245" duration="2073000" />
-      <workItem from="1715107931865" duration="7067000" />
+      <workItem from="1715107931865" duration="8104000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -179,7 +152,23 @@
       <option name="project" value="LOCAL" />
       <updated>1715076765661</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="included the data cleaning scripts">
+      <option name="closed" value="true" />
+      <created>1715216779279</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715216779279</updated>
+    </task>
+    <task id="LOCAL-00006" summary="included the data cleaning scripts">
+      <option name="closed" value="true" />
+      <created>1715216860055</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715216860055</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,7 +178,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="first commit" />
     <MESSAGE value="complete with data" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete with data" />
+    <MESSAGE value="included the data cleaning scripts" />
+    <option name="LAST_COMMIT_MESSAGE" value="included the data cleaning scripts" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/llmguard$MakeSaladBenchGraph.coverage" NAME="MakeSaladBenchGraph Coverage Results" MODIFIED="1715215654674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -199,6 +189,6 @@
     <SUITE FILE_PATH="coverage/llmguard$LLMGuard.coverage" NAME="LLMGuard Coverage Results" MODIFIED="1715215997988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:\codeorgproject\llmguard" />
     <SUITE FILE_PATH="coverage/llmguard$llmGuard.coverage" NAME="llmGuard Coverage Results" MODIFIED="1715026683886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="H:\codeorgproject\llmguard" />
     <SUITE FILE_PATH="coverage/llmguard$DataCleaning.coverage" NAME="DataCleaning Coverage Results" MODIFIED="1714173352444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/llmguard$MakeXSGraph.coverage" NAME="MakeXSGraph Coverage Results" MODIFIED="1715215705448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/llmguard$MakeXSGraph.coverage" NAME="MakeXSGraph Coverage Results" MODIFIED="1715216845197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
