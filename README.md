@@ -5,10 +5,9 @@ The way I processed the data was a bit convoluted so I wanted to run you through
 Procedure:
 
 1. Base prompts from /{dataset_name}/prompts were fed into the Guarded-LLM
-
-        a. The "question" field served as the prompt for the base_set.
-        b. The "aug_q" field served as the prompt for the attacked_enhanced_set.
-        c. The "prompt" field was also used for the attacked_enhanced_set.
+        -The "question" field served as the prompt for the base_set.
+        -The "aug_q" field served as the prompt for the attacked_enhanced_set.
+        -The "prompt" field was also used for the attacked_enhanced_set.
 2. Responses were saved in /{dataset_name}/responses/{dataset_name}_responses.json
         
         a. Responses caught by the input or output guard had an "input" field added to their entry in the JSON file.
